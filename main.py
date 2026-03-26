@@ -20,8 +20,14 @@ HILITE_RGBA = (255, 255, 0, 90)
 FONT_NAME = "segoeuisymbol"
 FONT_SIZE = 36
 
-# Stockfish: set path when you’re ready
-STOCKFISH_PATH = r"C:\Users\dhruv\PycharmProjects\stockfish\stockfish-windows-x86-64-avx2.exe"
+# Stockfish: set this to your local Stockfish binary path to enable Stockfish play.
+# Download from: https://stockfishchess.org/download/
+# Leave as None to disable (Minimax will be used as fallback).
+# Examples:
+#   Windows: r"C:\path\to\stockfish.exe"
+#   macOS:   "/usr/local/bin/stockfish"
+#   Linux:   "/usr/games/stockfish"
+STOCKFISH_PATH = None  # <-- Set your path here
 STOCKFISH_LIMIT = chess.engine.Limit(time=0.1)  # or depth=12, nodes=...
 
 # How long to display result screen (ms)
@@ -453,11 +459,13 @@ def run_batch(num_games=10):
 
 
 def main():
-    # Choose players per side: "human", "minimax", or "stockfish"
-    # Example: Minimax (white) vs Human (black)
-    #game = ChessGame(white_player="minimax", black_player="stockfish", minimax_depth=4)
-    #game.play()
-    run_batch(num_games=100)
+    # Configure players: "human", "minimax", or "stockfish"
+    # Adjust minimax_depth to control bot strength (higher = stronger but slower)
+    game = ChessGame(white_player="human", black_player="minimax", minimax_depth=5)
+    game.play()
+
+    # To run automated bot-vs-bot games, use run_batch() instead:
+    # run_batch(num_games=10)
 
 if __name__ == "__main__":
     main()
